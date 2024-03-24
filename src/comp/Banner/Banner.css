@@ -1,0 +1,35 @@
+body{
+    background-color: aliceblue;
+}
+.carousel-image {
+    width: 95%;
+  
+    border-radius: 1rem;
+   
+    /* Make the image responsive by taking 100% width */
+}
+
+.carousel {
+   padding: 2rem;
+   height: 80%;
+ 
+}
+
+
+
+@media (min-width: 768px) {
+    
+}
+
+.des {
+    background-color: rgba(5, 5, 5, 0.589);
+}
+
+@media only screen and (max-width: 600px) {
+    .carousel-image{
+        height: 100%;
+    }
+    .carousel {
+        padding: 1rem;
+     }
+}
