@@ -1,12 +1,16 @@
-import React ,{useEffect,useState} from 'react'
-import './RowCard.css'
+import './Spot.css'
 import axios from '../../axios'
 import { imageUrl,API_KEY } from '../../constants/constant'
 import YouTube from 'react-youtube'
 
+import React ,{useEffect,useState} from 'react'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
-
-import { Container,Carousel,Card,Button} from 'react-bootstrap';
 
 
 
@@ -14,6 +18,23 @@ import { Container,Carousel,Card,Button} from 'react-bootstrap';
 
 
 function Sports() {
+
+  let [art,Setart] = useState([]);
+
+  let SampleImageURL='https://th.bing.com/th/id/R.1a12b4c6a85c3d3d0356b8b0982e3038?rik=%2bN8VUyxPhKxwsA&riu=http%3a%2f%2fvignette3.wikia.nocookie.net%2flego%2fimages%2fa%2fac%2fNo-Image-Basic.png%2frevision%2flatest%3fcb%3d20130819001030&ehk=4LPMn2YupbS2wKmWBvjF5%2bFz434RztzcY3x7Pg99GBI%3d&risl=&pid=ImgRaw&r=0'
+
+  useEffect(()=>{
+    fetch("https://newsapi.org/v2/everything?q=accident&apiKey=ee97686e4c5e4641a4599c48e2d41880").then((response)=>response.json()).then((data)=>{
+     
+      Setart(data.articles)
+      
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
+
+
+
   return (
 
     <div className="container-fluid mt-3" >
@@ -24,88 +45,40 @@ function Sports() {
   <div className="card-container">
 
 
-  <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
- 
-   
-
   
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
+
+ 
+  {
+  art.map((article, index) => (
+
+    <div className='col-3'>
+    <Card sx={{ maxWidth: 345 }} className='cars' key={index}>
+      <CardMedia
+        component="img"
+        alt={article.title}
+        height="180"
+        image={article.urlToImage || SampleImageURL}
+        onError={(e) => {
+          e.target.src = SampleImageURL; // Use a sample image URL if the article doesn't have an image
+        }}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {article.title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {article.description.split(' ').slice(0, 10).join(' ')}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
     </div>
+  ))
+}
 
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-
-  <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
-
-
-    <div className="card">
-      <div className="card-content">
-        <h2 className="card-title">Your Title</h2>
-        <p className="card-text">Your text goes here. It can be a longer description or any .</p>
-      </div>
-    </div>
 
     </div>
     </div>
@@ -116,61 +89,3 @@ function Sports() {
 export default Sports;
 
 
-
-{/*function RowCard(props) {
-
-const [movie,setMovie] = useState([])
-
-const [mov_id,setid] = useState('')
-
-useEffect(()=>{
-axios.get(props.url).then(response=>{
-  console.log(response.data)
-  setMovie(response.data.results)
-})
-},[])
-
-const opts = {
-  height: '390',
-  width: '100%',
-  playerVars: {
-    // https://developers.google.com/youtube/player_parameters
-    autoplay: 1,
-  },
-}
- const mov_handle=(id)=>{
-  console.log(id)
-  axios.get(`/movie/${id}/videos?api_key=${API_KEY}`).then(response=>{
-    if(response.data.results.length !== 0){
-      setid(response.data.results[0])
-    }
- else{
-  console.log("Empty")
- }
-})
-   
-
-  
- }
-
-  return (
-    <div className='row'>
-      <h2>{props.title}</h2>
-      <div className="posts">
-        {movie.map((obj) =>
-        <Card>
-      <Card.Img onClick={()=>mov_handle(obj.id)} variant="top" className={props.isSmall ? 'smpost' : 'post'} src={`${imageUrl+obj.backdrop_path}`} />
-      <Card.Body>{obj.name}
-        <Card.Title>{obj.title ? obj.title : obj.original_title}</Card.Title>
-        
-      </Card.Body>
-    </Card>
-       
-        )}
-      </div>
-   {  mov_id &&  <YouTube videoId={mov_id.key} opts={opts}/> }
-    </div>
-  )
-}
-
-export default RowCard*/}

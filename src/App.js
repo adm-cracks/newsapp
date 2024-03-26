@@ -28,7 +28,7 @@ useEffect(()=>{
   
     
      
-  <RowCard></RowCard>
+  {/* <RowCard></RowCard> */}
 
 
     {/* <RowCard url={originals} title='cat'/> */}

@@ -1,0 +1,21 @@
+.late {
+    margin-left: 12px;
+    font-weight: bold;
+}
+
+.card-container {
+    display: flex;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.cars {
+    margin-right: 1rem;
+    
+}
+
+@media (max-width: 768px) {}
+
+.card-container::-webkit-scrollbar {
+    display: none;
+}
