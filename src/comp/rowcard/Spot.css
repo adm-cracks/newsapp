@@ -6,16 +6,51 @@
 .card-container {
     display: flex;
     overflow-x: auto;
-    width: 100%;
+   width: 93%;
+    gap: 1rem;
+    margin: auto;
 }
 
 .cars {
-    margin-right: 1rem;
+   
+   width: 20rem;
+  height: 25rem;
     
 }
 
-@media (max-width: 768px) {}
+.cardcont{
+    height: 10rem;
+}
+
+#left{
+width: min-content;
+position: relative;
+top:-14rem;
+
+cursor: pointer;
+font-size: 2rem;
+}
+#right{
+    position: relative;
+    width: min-content;
+    float:right;
+    top:-14rem;
+    cursor: pointer;
+font-size: 2rem;
+}
+.spotcard{
+    width: 100%;
+}
+
+/* @media (max-width: 768px) {
+
+
+    #spotcard{
+        display: flex;
+        flex-direction: column;
+    }
+}
 
 .card-container::-webkit-scrollbar {
     display: none;
-}
+} */

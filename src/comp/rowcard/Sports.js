@@ -1,91 +1,117 @@
-import './Spot.css'
-import axios from '../../axios'
-import { imageUrl,API_KEY } from '../../constants/constant'
-import YouTube from 'react-youtube'
-
-import React ,{useEffect,useState} from 'react'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-
-
-
-
-
+import React, { useEffect, useState, useRef } from 'react';
+import './Spot.css';
+import axios from '../../axios';
+import { imageUrl, API_KEY } from '../../constants/constant';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 function Sports() {
+  const [art, setArt] = useState([]);
+  const cardContainerRef = useRef(null);
 
-  let [art,Setart] = useState([]);
+  useEffect(() => {
+    fetch("https://newsapi.org/v2/everything?q=yesterday&apiKey=ee97686e4c5e4641a4599c48e2d41880")
+      .then(response => response.json())
+      .then(data => {
+        setArt(data.articles);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
-  let SampleImageURL='https://th.bing.com/th/id/R.1a12b4c6a85c3d3d0356b8b0982e3038?rik=%2bN8VUyxPhKxwsA&riu=http%3a%2f%2fvignette3.wikia.nocookie.net%2flego%2fimages%2fa%2fac%2fNo-Image-Basic.png%2frevision%2flatest%3fcb%3d20130819001030&ehk=4LPMn2YupbS2wKmWBvjF5%2bFz434RztzcY3x7Pg99GBI%3d&risl=&pid=ImgRaw&r=0'
+  const SampleImageURL = 'https://th.bing.com/th/id/R.1a12b4c6a85c3d3d0356b8b0982e3038?rik=%2bN8VUyxPhKxwsA&riu=http%3a%2f%2fvignette3.wikia.nocookie.net%2flego%2fimages%2fa%2fac%2fNo-Image-Basic.png%2frevision%2flatest%3fcb%3d20130819001030&ehk=4LPMn2YupbS2wKmWBvjF5%2bFz434RztzcY3x7Pg99GBI%3d&risl=&pid=ImgRaw&r=0';
 
-  useEffect(()=>{
-    fetch("https://newsapi.org/v2/everything?q=accident&apiKey=ee97686e4c5e4641a4599c48e2d41880").then((response)=>response.json()).then((data)=>{
-     
-      Setart(data.articles)
-      
-    }).catch((err)=>{
-      console.log(err)
-    })
-  },[])
+  const handleSwipe = (direction) => {
+    const container = cardContainerRef.current;
+    if (container) {
+      const scrollAmount = 300; // Adjust this value based on your card width
+      const scrollIncrement = 10; // Adjust this value for smoother scrolling
+      const scrollDuration = 15; // Adjust this value for the duration of each scroll step
+  
+      let scrollLeft = container.scrollLeft;
+      let targetScroll;
+  
+      if (direction === 'left') {
+        targetScroll = Math.max(scrollLeft - scrollAmount, 0);
+      } else {
+        targetScroll = Math.min(scrollLeft + scrollAmount, container.scrollWidth - container.clientWidth);
+      }
+  
+      const scrollStep = () => {
+        if (direction === 'left' && container.scrollLeft > targetScroll) {
+          container.scrollLeft -= scrollIncrement;
+          setTimeout(scrollStep, scrollDuration);
+        } else if (direction === 'right' && container.scrollLeft < targetScroll) {
+          container.scrollLeft += scrollIncrement;
+          setTimeout(scrollStep, scrollDuration);
+        }
+      };
+  
+      scrollStep();
+    }
+  };
 
+  const handleShare = async (articleUrl) => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          url: articleUrl,
+        });
+      } else {
+        // Fallback for platforms that don't support Web Share API
+        // You can implement your own share options or use third-party libraries
+        console.log("Web Share API not supported. Implement fallback share options here.");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
 
+  const handleLearnMore = (articleUrl) => {
+    window.open(articleUrl, "_blank");
+  };
 
   return (
-
-    <div className="container-fluid mt-3" >
-  <h4 className='late'>Sports  News</h4>
-  <div className='row' id='maincat'>
-  
-
-  <div className="card-container">
-
-
-  
-
- 
-  {
-  art.map((article, index) => (
-
-    <div className='col-3'>
-    <Card sx={{ maxWidth: 345 }} className='cars' key={index}>
-      <CardMedia
-        component="img"
-        alt={article.title}
-        height="180"
-        image={article.urlToImage || SampleImageURL}
-        onError={(e) => {
-          e.target.src = SampleImageURL; // Use a sample image URL if the article doesn't have an image
-        }}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {article.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        {article.description.split(' ').slice(0, 10).join(' ')}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-    </div>
-  ))
-}
-
-
-    </div>
-    </div>
+    <div className="container-fluid mt-3">
+      <h4 className='late'>Latest News</h4>
+      <div className='row' id='maincat'>
+        <div className="card-container" ref={cardContainerRef}>
+          {art.map((article, index) => (
+            <div key={index} className='spotcard' style={{width:'600px',backgroundColor:'red'}}>
+              <Card  className='cars' sx={{ maxWidth: 700 }}>
+                <CardMedia
+                  component="img"
+                  alt={article.title}
+                  height="180"
+                  image={article.urlToImage || SampleImageURL}
+                  onError={(e) => {
+                    e.target.src = SampleImageURL; // Use a sample image URL if the article doesn't have an image
+                  }}
+                />
+                <CardContent className='cardcont'>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {article.title.split(' ').slice(0, 6).join(' ')}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {article.description ? article.description.split(' ').slice(0, 10).join(' ') : ''}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" onClick={() => handleShare(article.url)}>Share</Button>
+                  <Button size="small" onClick={() => handleLearnMore(article.url)}>Learn More</Button>
+                </CardActions>
+              </Card>
+            </div>
+          ))}
+        </div>
+        <div className="swipe-buttons">
+          <span onClick={() => handleSwipe('left')} id='left'>《</span>
+          <span onClick={() => handleSwipe('right')} id='right'>》</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Sports;
-
-

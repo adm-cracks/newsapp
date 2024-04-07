@@ -3,9 +3,11 @@ import './App.css';
 import React ,{useEffect, useState} from 'react';
 import Banner from './comp/Banner/Banner';
 import AppNavBar from './comp/NavBar/NavBar';
+import Fot  from './comp/NavBar/Fot';
 import RowCard from './comp/rowcard/RowCard';
 import {action,originals} from './urls'
 import Sports from './comp/rowcard/Sports';
+
 // import RowCard from './comp/rowc/RowCard'
 
 function App() {
@@ -36,6 +38,8 @@ useEffect(()=>{
 
       <Sports url={originals} title='cat'/>
          {/*  <RowCard url={action} title='action' isSmall/>*/}
+
+         <Fot/>
     </div>
   );
 }
