@@ -77,8 +77,8 @@ function Sports() {
       <h4 className='late'>Latest News</h4>
       <div className='row' id='maincat'>
         <div className="card-container" ref={cardContainerRef}>
-          {art.length > 0 ? (
-            art.map((article, index) => (
+        {art && art.length > 0 ? (
+  art.map((article, index) => (
               <div key={index} className='spotcard' style={{ width: '600px', backgroundColor: 'red' }}>
                 <Card className='cars' sx={{ maxWidth: 700 }}>
                   <CardMedia
