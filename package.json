@@ -2,7 +2,6 @@
   "name": "netclone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://adm-cracks.github.io/newsapp",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
@@ -32,8 +31,7 @@
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build"
+  
   },
   "eslintConfig": {
     "extends": [
