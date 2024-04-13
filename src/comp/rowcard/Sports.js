@@ -77,33 +77,37 @@ function Sports() {
       <h4 className='late'>Latest News</h4>
       <div className='row' id='maincat'>
         <div className="card-container" ref={cardContainerRef}>
-          {art.map((article, index) => (
-            <div key={index} className='spotcard' style={{width:'600px',backgroundColor:'red'}}>
-              <Card  className='cars' sx={{ maxWidth: 700 }}>
-                <CardMedia
-                  component="img"
-                  alt={article.title}
-                  height="180"
-                  image={article.urlToImage || SampleImageURL}
-                  onError={(e) => {
-                    e.target.src = SampleImageURL; // Use a sample image URL if the article doesn't have an image
-                  }}
-                />
-                <CardContent className='cardcont'>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {article.title.split(' ').slice(0, 6).join(' ')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {article.description ? article.description.split(' ').slice(0, 10).join(' ') : ''}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" onClick={() => handleShare(article.url)}>Share</Button>
-                  <Button size="small" onClick={() => handleLearnMore(article.url)}>Learn More</Button>
-                </CardActions>
-              </Card>
-            </div>
-          ))}
+          {art.length > 0 ? (
+            art.map((article, index) => (
+              <div key={index} className='spotcard' style={{ width: '600px', backgroundColor: 'red' }}>
+                <Card className='cars' sx={{ maxWidth: 700 }}>
+                  <CardMedia
+                    component="img"
+                    alt={article.title}
+                    height="180"
+                    image={article.urlToImage || SampleImageURL}
+                    onError={(e) => {
+                      e.target.src = SampleImageURL; // Use a sample image URL if the article doesn't have an image
+                    }}
+                  />
+                  <CardContent className='cardcont'>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {article.title.split(' ').slice(0, 6).join(' ')}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {article.description ? article.description.split(' ').slice(0, 10).join(' ') : ''}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small" onClick={() => handleShare(article.url)}>Share</Button>
+                    <Button size="small" onClick={() => handleLearnMore(article.url)}>Learn More</Button>
+                  </CardActions>
+                </Card>
+              </div>
+            ))
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
         <div className="swipe-buttons">
           <span onClick={() => handleSwipe('left')} id='left'>《</span>
@@ -112,6 +116,7 @@ function Sports() {
       </div>
     </div>
   );
+  
 }
 
 export default Sports;
