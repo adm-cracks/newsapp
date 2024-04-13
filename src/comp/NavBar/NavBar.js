@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './NavBar.css'
 
-import { Navbar, Nav, Container, Button, Offcanvas, NavDropdown,Form,Col,Row } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, Offcanvas, NavDropdown } from 'react-bootstrap';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

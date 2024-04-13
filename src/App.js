@@ -1,27 +1,27 @@
 
 import './App.css';
-import React ,{useEffect, useState} from 'react';
+import React ,{} from 'react';
 import Banner from './comp/Banner/Banner';
 import AppNavBar from './comp/NavBar/NavBar';
 import Fot  from './comp/NavBar/Fot';
-import RowCard from './comp/rowcard/RowCard';
-import {action,originals} from './urls'
+
+import {originals} from './urls'
 import Sports from './comp/rowcard/Sports';
 
 // import RowCard from './comp/rowc/RowCard'
 
 function App() {
-let [art,Setart] = useState([]);
+// let [art,Setart] = useState([]);
 
-useEffect(()=>{
-  fetch("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=ee97686e4c5e4641a4599c48e2d41880").then((response)=>response.json()).then((data)=>{
-    console.log(data.articles);
-    Setart(data.articles)
+// useEffect(()=>{
+//   fetch("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=ee97686e4c5e4641a4599c48e2d41880").then((response)=>response.json()).then((data)=>{
+//     console.log(data.articles);
+//     Setart(data.articles)
     
-  }).catch((err)=>{
-    console.log(err)
-  })
-},[])
+//   }).catch((err)=>{
+//     console.log(err)
+//   })
+// },[])
 
   return (
     <div className="App">

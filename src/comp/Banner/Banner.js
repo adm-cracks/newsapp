@@ -1,8 +1,8 @@
-import React,{useEffect, useState} from 'react'
+import React,{} from 'react'
 import "./Banner.css"
-import axios from '../../axios'
-import { API_KEY,imageUrl } from '../../constants/constant'
-import { Container,Carousel} from 'react-bootstrap';
+
+
+import { Carousel} from 'react-bootstrap';
 
 
 import exampleImage from './img/ban.png';

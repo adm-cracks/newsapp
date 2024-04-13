@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Spot.css';
-import axios from '../../axios';
-import { imageUrl, API_KEY } from '../../constants/constant';
+
+
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+
 
 function Sports() {
   const [art, setArt] = useState([]);
